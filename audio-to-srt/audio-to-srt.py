@@ -15,16 +15,17 @@ else:
     with open('subtitle-transcription-prompt.txt', 'r') as file:
         transcription_prompt = file.read()
 
-original_subtitle_file="old.srt"
-corrected_subtitle_file="new.srt"
+def get_filename_from_path(file_path):
+    base_name = os.path.basename(file_path)  # Get the filename with extension
+    file_name, _ = os.path.splitext(base_name)  # Remove the extension
+    return file_name
 
-def transcribe(audio_file, output_file):
+def transcribe(audio_file):
     """
-    This function transcribes an audio file and saves the transcription to a specified file.
+    Create a transcription of an audio file and save it to a file.
 
     Parameters:
-    audio_file (file): The audio file to be transcribed.
-    output_file (str): The name of the file where the transcription will be written.
+    audio_file (file): The audio file to transcribe.
 
     Returns:
     transcript (str): The transcription of the audio file.
@@ -43,7 +44,7 @@ def transcribe(audio_file, output_file):
         )
 
         # Open the output file in write mode
-        with open(output_file, "w") as file:
+        with open("original.srt", "w") as file:
             # Write the transcript to the file
             file.write(transcript)
 
@@ -55,11 +56,10 @@ def transcribe(audio_file, output_file):
         # Return None if an error occurs
         return None
 
+
 def generate_corrected_transcript(temperature,
                                   subtitle_correction_prompt,
-                                  audio_file,
-                                  original_transcript_file_name,
-                                  corrected_transcript_file_name):
+                                  audio_file):
     """
     Generate a corrected transcript by first transcribing the audio file and then processing the transcription with an AI model.
 
@@ -68,14 +68,13 @@ def generate_corrected_transcript(temperature,
     subtitle_correction_prompt (str): The system prompt for the AI model, providing initial instructions.
     audio_file (file): The audio file to transcribe.
     original_transcript_file_name (str): The name of the file to write the original transcription to.
-    corrected_transcript_file_name (str): The name of the file to write the corrected transcription to.
 
     Returns:
     corrected_transcript (str): The corrected transcription.
     None: If an error occurs during the transcription.
     """
 
-    transcript = transcribe(audio_file, original_transcript_file_name)
+    transcript = transcribe(audio_file)
     if transcript is None:
         return None
 
@@ -95,7 +94,7 @@ def generate_corrected_transcript(temperature,
     )
     corrected_transcript = response.choices[0].message.content
 
-    with open(corrected_transcript_file_name, "w") as file:
+    with open(get_filename_from_path(audio_file_path) + ".srt", "w") as file:
         file.write(corrected_transcript)
 
     return corrected_transcript
@@ -110,4 +109,4 @@ else:
     # Open the audio file
     audio = open(audio_file_path, "rb")
 
-corrected_text = generate_corrected_transcript(0, subtitle_correction_prompt, audio, original_subtitle_file, corrected_subtitle_file)
+corrected_text = generate_corrected_transcript(0, subtitle_correction_prompt, audio)
