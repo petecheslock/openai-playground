@@ -4,7 +4,7 @@ This Python script uses the OpenAI API to transcribe an audio file and then corr
 
 ## What the script does
 
-1. The script first checks if a file named 'prompt.txt' exists in the same directory. This file should contain the system prompt for the AI model.
+1. The script first checks if a file named 'subtitle-correction-prompt.txt' and 'subtitle-correction-prompt.txt' exist in the same directory. This file should contain the system prompt for the AI model and the subtitle creation model.
 2. It then transcribes an audio file using the 'whisper-1' model from the OpenAI API.
 3. The transcription is then processed by an AI model to generate a corrected transcript.
 
@@ -15,8 +15,6 @@ The script requires the following parameters:
 - `temperature`: The temperature parameter for the AI model.
 - `system_prompt`: The system prompt for the AI model. This is read from the 'prompt.txt' file.
 - `audio_file`: The audio file to transcribe.
-- `original_transcript_file_name`: The name of the file to write the original transcription to.
-- `corrected_transcript_file_name`: The name of the file to write the corrected transcription to.
 
 These parameters should be passed to the `generate_corrected_transcript` function.
 
