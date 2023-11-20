@@ -22,7 +22,7 @@ These parameters should be passed to the `generate_corrected_transcript` functio
 
 ## Usage
 
-1. Make sure you have a file named 'prompt.txt' in the same directory as the script. This file should contain the system prompt for the AI model.
+1. Make sure you have a file named 'subtitle-correction-prompt.txt' in the same directory as the script. This file should contain the system prompt for the AI model for correcting the text of the initial subtitle result.
 2. Setup a virtual env:
    ```python -m venv .venv```
 3. Activate it:

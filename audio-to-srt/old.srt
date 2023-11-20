@@ -1,0 +1,49 @@
+1
+00:00:00,320 --> 00:00:04,320
+Hey everyone, my name is Pete Cheslock and I'm here to share with you our latest feature
+
+2
+00:00:04,320 --> 00:00:09,960
+in the AppMap extension for JetBrains users, Code Accurate Automatic Sequence Diagrams.
+
+3
+00:00:09,960 --> 00:00:13,960
+After installing the AppMap plugin to your Spring Java project, select on the Run with
+
+4
+00:00:13,960 --> 00:00:18,780
+AppMap icon to start your application with AppMap enabled.
+
+5
+00:00:18,780 --> 00:00:23,600
+After your application is running, you can create a new remote recording of an interaction.
+
+6
+00:00:23,600 --> 00:00:28,920
+Click the record button and enter in the URL for your application to start recording.
+
+7
+00:00:28,920 --> 00:00:34,000
+Now interact with your application in any way that you're trying to better understand.
+
+8
+00:00:34,000 --> 00:00:39,080
+When finished, click Stop Recording and name your AppMap.
+
+9
+00:00:39,080 --> 00:00:43,120
+You can now open your AppMap, which will default to Dependency View.
+
+10
+00:00:43,120 --> 00:00:46,800
+Then click over to the new Sequence Diagram view, where you can see all the interactions
+
+11
+00:00:46,800 --> 00:00:52,000
+from API to Database, and directly link to any of the code involved in your request.
+
+12
+00:00:52,000 --> 00:00:58,160
+You can get started now by downloading AppMap at appmap.io or inside your JetBrains Marketplace.
+
+
