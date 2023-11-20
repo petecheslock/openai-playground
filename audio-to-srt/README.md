@@ -23,10 +23,14 @@ These parameters should be passed to the `generate_corrected_transcript` functio
 ## Usage
 
 1. Make sure you have a file named 'prompt.txt' in the same directory as the script. This file should contain the system prompt for the AI model.
-2. Setup a virtual env `python -m venv openai-env`
-3. Activate it `source openai-env/bin/activate`
-4. Install requirements `pip install -r requirements.txt`
-5. Run the script. `python audio-to-srt.py`
+2. Setup a virtual env:
+   ```python -m venv openai-env```
+3. Activate it:
+   ```source openai-env/bin/activate```
+4. Install requirements:
+   ```pip install -r requirements.txt```
+5. Run the script:
+   ```python audio-to-srt.py```
 
 ## Dependencies
 
