@@ -3,19 +3,39 @@ import os
 
 client = OpenAI()
 
-if not os.path.isfile('subtitle-correction-prompt.txt'):
-    raise FileNotFoundError("The file 'prompt.txt' does not exist. Please ensure the file is in the correct location.")
+sub_correction_prompt = 'subtitle-transcription-prompt.txt'
+sub_transcription_prompt = 'subtitle-transcription-prompt.txt'
+
+# Check if the file for subtitle correction prompt exists
+if not os.path.isfile(sub_correction_prompt):
+    # Raise an error if the file doesn't exist
+    raise FileNotFoundError(f"""The file '{sub_correction_prompt}' does not exist. 
+                            Please ensure the file is in the correct location.""")
 else:
-    with open('subtitle-correction-prompt.txt', 'r') as file:
+    # Open the file and read its content
+    with open(sub_correction_prompt, 'r') as file:
         subtitle_correction_prompt = file.read()
 
-if not os.path.isfile('subtitle-transcription-prompt.txt'):
-    raise FileNotFoundError("The file 'prompt.txt' does not exist. Please ensure the file is in the correct location.")
+# Check if the file for subtitle transcription prompt exists
+if not os.path.isfile(sub_transcription_prompt):
+    # Raise an error if the file doesn't exist
+    raise FileNotFoundError(f"""The file '{sub_transcription_prompt}' does not exist. 
+                            Please ensure the file is in the correct location.""")
 else:
-    with open('subtitle-transcription-prompt.txt', 'r') as file:
+    # Open the file and read its content
+    with open(sub_transcription_prompt, 'r') as file:
         transcription_prompt = file.read()
 
 def get_filename_from_path(file_path):
+    """
+    Get the filename from a given file path.
+
+    Parameters:
+    file_path (str): The path of the file.
+
+    Returns:
+    file_name (str): The name of the file without extension.
+    """
     base_name = os.path.basename(file_path)  # Get the filename with extension
     file_name, _ = os.path.splitext(base_name)  # Remove the extension
     return file_name
@@ -61,7 +81,8 @@ def generate_corrected_transcript(temperature,
                                   subtitle_correction_prompt,
                                   audio_file):
     """
-    Generate a corrected transcript by first transcribing the audio file and then processing the transcription with an AI model.
+    Generate a corrected transcript by first transcribing the audio file and then
+    processing the transcription with an AI model.
 
     Parameters:
     temperature (float): The temperature parameter for the AI model, controlling the randomness of the output.
