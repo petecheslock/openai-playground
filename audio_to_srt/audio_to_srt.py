@@ -52,8 +52,10 @@ def transcribe(audio_file):
     audio_file (file): The audio file to transcribe.
 
     Returns:
-    transcript (str): The transcription of the audio file.
+    transcript (str): The transcription of the audio file. Also saved
+        as a file called original.srt
     None: If an error occurs during the transcription.
+
 
     Raises:
     Exception: If there's an error during the transcription process.
@@ -92,8 +94,7 @@ def generate_corrected_transcript(temperature,
     temperature (float): The temperature parameter for the AI model, controlling the randomness of the output.
     subtitle_correction_prompt (str): The system prompt for the AI model, providing initial instructions.
     audio_file (file): The audio file to transcribe.
-    original_transcript_file_name (str): The name of the file to write the original transcription to.
-
+    
     Returns:
     corrected_transcript (str): The corrected transcription.
     None: If an error occurs during the transcription.
