@@ -3,28 +3,32 @@ import os
 
 client = OpenAI()
 
-sub_correction_prompt = 'subtitle-correction-prompt.txt'
-sub_transcription_prompt = 'subtitle-transcription-prompt.txt'
+sub_correction_prompt_file = 'subtitle-correction-prompt.txt'
+sub_transcription_prompt_file = 'subtitle-transcription-prompt.txt'
 
-# Check if the file for subtitle correction prompt exists
-if not os.path.isfile(sub_correction_prompt):
-    # Raise an error if the file doesn't exist
-    raise FileNotFoundError(f"""The file '{sub_correction_prompt}' does not exist. 
-                            Please ensure the file is in the correct location.""")
-else:
-    # Open the file and read its content
-    with open(sub_correction_prompt, 'r') as file:
-        subtitle_correction_prompt = file.read()
+def check_and_read_file(file_path):
+    """
+    Check if a file exists and read its content.
 
-# Check if the file for subtitle transcription prompt exists
-if not os.path.isfile(sub_transcription_prompt):
-    # Raise an error if the file doesn't exist
-    raise FileNotFoundError(f"""The file '{sub_transcription_prompt}' does not exist. 
-                            Please ensure the file is in the correct location.""")
-else:
-    # Open the file and read its content
-    with open(sub_transcription_prompt, 'r') as file:
-        transcription_prompt = file.read()
+    Parameters:
+    file_path (str): The path of the file.
+
+    Returns:
+    file_content (str): The content of the file.
+
+    Raises:
+    FileNotFoundError: If the file does not exist.
+    """
+    # Check if the file exists
+    if not os.path.isfile(file_path):
+        # Raise an error if the file doesn't exist
+        raise FileNotFoundError(f"""The file '{file_path}' does not exist.
+                                Please ensure the file is in the correct location.""")
+    else:
+        # Open the file and read its content
+        with open(file_path, 'r') as file:
+            file_content = file.read()
+    return file_content
 
 def get_filename_from_path(file_path):
     """
@@ -57,7 +61,7 @@ def transcribe(audio_file):
     try:
         # Create a transcription of the audio file using the whisper-1 model
         transcript = client.audio.transcriptions.create(
-            prompt=transcription_prompt,
+            prompt=check_and_read_file(sub_transcription_prompt_file),
             model="whisper-1",
             file=audio_file,
             response_format="srt"
@@ -129,5 +133,4 @@ if not os.path.isfile(audio_file_path):
 else:
     # Open the audio file
     with open(audio_file_path, "rb") as audio:
-        corrected_text = generate_corrected_transcript(0, subtitle_correction_prompt, audio)
-
+        corrected_text = generate_corrected_transcript(0, check_and_read_file(sub_correction_prompt_file), audio)
