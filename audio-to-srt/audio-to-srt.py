@@ -128,6 +128,6 @@ if not os.path.isfile(audio_file_path):
     print("The file does not exist.")
 else:
     # Open the audio file
-    audio = open(audio_file_path, "rb")
+    with open(audio_file_path, "rb") as audio:
+        corrected_text = generate_corrected_transcript(0, subtitle_correction_prompt, audio)
 
-corrected_text = generate_corrected_transcript(0, subtitle_correction_prompt, audio)
