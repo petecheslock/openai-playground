@@ -8,9 +8,9 @@ Each subdirectory in this repository is a separate project with its own specific
 
 Here is a list of the subprojects included in this repository:
 
-### [Audio to Text Transcription](./audio-to-srt)
+### [Audio to Text Transcription](./audio_to_srt)
 
-This project transcribes an audio file and then corrects the transcription using an AI model. It uses the 'whisper-1' model from the OpenAI API for transcription and then processes the transcription to generate a corrected transcript. For more details, see the [project's README](./audio-to-srt/README.md).
+This project transcribes an audio file and then corrects the transcription using an AI model. It uses the 'whisper-1' model from the OpenAI API for transcription and then processes the transcription to generate a corrected transcript. For more details, see the [project's README](./audio_to_srt/README.md).
 
 ## General Dependencies
 

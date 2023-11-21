@@ -3,7 +3,7 @@ import os
 
 client = OpenAI()
 
-sub_correction_prompt = 'subtitle-transcription-prompt.txt'
+sub_correction_prompt = 'subtitle-correction-prompt.txt'
 sub_transcription_prompt = 'subtitle-transcription-prompt.txt'
 
 # Check if the file for subtitle correction prompt exists
