@@ -53,3 +53,4 @@ The transcriptions are saved to files in SubRip (.srt) format. Both the original
 1) Accept a youtube link
 2) Parse audio from YT file
 3) create a simple webfront end or API endpoint
+
