@@ -47,3 +47,9 @@ These parameters should be passed to the `generate_corrected_transcript` functio
 ## Output
 
 The transcriptions are saved to files in SubRip (.srt) format. Both the original and post-processed transcriptions are saved for comparison. 
+
+## Future ideas
+
+1) Accept a youtube link
+2) Parse audio from YT file
+3) create a simple webfront end or API endpoint
