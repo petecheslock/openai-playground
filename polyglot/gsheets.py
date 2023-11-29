@@ -83,7 +83,7 @@ def translate_to_english(text_to_translate):
             },
             {
                 "role": "user",
-                "content": f"Translate the following text to English: '{text_to_translate}'"
+                "content": f"Translate the following text to English. Only respond with the translated text as a string and nothing else: '{text_to_translate}'"
 
             }
         ]
