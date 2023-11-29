@@ -48,6 +48,17 @@ def read_data_from_sheets(creds, spreadsheet_id, select_range):
 
     return values
 
+def write_data_to_sheets(creds, spreadsheet_id, select_range, data):
+    service = build("sheets", "v4", credentials=creds)
+    sheet = service.spreadsheets()
+    body = {
+        'values': data
+    }
+    result = sheet.values().update(
+        spreadsheetId=spreadsheet_id, range=select_range,
+        valueInputOption='USER_ENTERED', body=body).execute()
+    print('{0} cells updated.'.format(result.get('updatedCells')))
+
 def print_output(values):
     if not values:
         print("No data found.")
@@ -81,16 +92,25 @@ def translate_to_english(text_to_translate):
 
     return english_translation
 
+
+
 def main():
     try:
         creds = authenticate_google()
         values = read_data_from_sheets(creds, SPREADSHEET_ID, RANGE_NAME )
+        translations = []
         
         for row in values:
             language = detect_language(row[1])
             print(f"{row[0]}, {row[1]}", language)
-            if language == 'es':
-                print(translate_to_english(row[1]))
+            if language != 'en':
+                translation = translate_to_english(row[1])
+                translations.append([translation])
+            else:
+                translations.append(["English"])
+
+        write_data_to_sheets(creds, SPREADSHEET_ID, "Sheet1!D2:D", translations)
+
 
     except HttpError as err:
         print(err)
