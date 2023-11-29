@@ -16,7 +16,7 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 # The ID and range of a sample spreadsheet.
 SPREADSHEET_ID = "1NnavVJiVF3QySSG_Sb-m28AHUBB8LtjHt_FOpSSssn8"
-RANGE_NAME = "Sheet1!B:C"
+RANGE_NAME = "Sheet1!A:B"
 
 
 def authenticate_google():
@@ -92,8 +92,6 @@ def translate_to_english(text_to_translate):
 
     return english_translation
 
-
-
 def main():
     try:
         creds = authenticate_google()
@@ -109,7 +107,7 @@ def main():
             else:
                 translations.append(["English"])
 
-        write_data_to_sheets(creds, SPREADSHEET_ID, "Sheet1!D2:D", translations)
+        write_data_to_sheets(creds, SPREADSHEET_ID, "Sheet1!C2:C", translations)
 
 
     except HttpError as err:
