@@ -12,7 +12,7 @@ from langdetect import detect
 client = OpenAI()
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 # The ID and range of a sample spreadsheet.
 SPREADSHEET_ID = "1NnavVJiVF3QySSG_Sb-m28AHUBB8LtjHt_FOpSSssn8"
