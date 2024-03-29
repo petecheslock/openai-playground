@@ -5,17 +5,18 @@ import sys
 client = OpenAI()
 
 def summarize_text(text):
-    prompt = f"Summarize the following content into no longer than 150 characters for an Open Graph description field. The summary should be for improving SEO for a technical documentation site:\n{text}"
+    prompt = f"Summarize the following content into no longer than 160 characters for an Open Graph description field. The summary should be for improving SEO for a technical documentation site and you should ensure that AppMap is prominently featured:\n{text}"
     response = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-3.5-turbo-0125",
         messages=[
-          {"role": "system", "content": "You are an expert in summarizing the English language to optimize for open graph descriptions for SEO, aiming for brevity and clarity."},
+          {"role": "system", "content": "You are an expert in summarizing the English language to optimize for open graph descriptions for SEO, aiming for brevity and clarity. You need to ensure that your summary of any received text is approximately 150-160 characters but must not exceed 160 characters. It's better to have a summary less than 150 characters than over 160."},
           {"role": "user", "content": prompt}
         ],
         max_tokens=100,
         temperature=0.5
     )
     summary = response.choices[0].message.content.strip()
+    print(f"Summary length: {len(summary)} characters")
     print(summary)
     return summary
 
