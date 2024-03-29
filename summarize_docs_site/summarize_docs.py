@@ -1,6 +1,6 @@
 import glob
 from openai import OpenAI
-import os
+import sys
 
 client = OpenAI()
 
@@ -67,6 +67,9 @@ def process_folder(folder_path):
         update_markdown_file(md_file)
 
 
-# Example usage
-folder_path = "//Users/petecheslock/repos/applandinc.github.io/_docs/integrations"
+if len(sys.argv) < 2:
+  print("Please provide a directory path as a command line argument.")
+  sys.exit(1)
+
+folder_path = sys.argv[1]
 process_folder(folder_path)
