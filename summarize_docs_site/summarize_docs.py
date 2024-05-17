@@ -1,6 +1,7 @@
 import glob
 from openai import OpenAI
 import sys
+import os 
 
 client = OpenAI()
 
@@ -60,17 +61,25 @@ def update_markdown_file(file_path):
     print(f"Updated {file_path}")
 
 
-def process_folder(folder_path):
-    matched_files = glob.glob(f"{folder_path}/**/*.md", recursive=True)
-    print(f"Found {len(matched_files)} files.")
-    for md_file in matched_files:
-        print(f"Processing: {md_file}")
-        update_markdown_file(md_file)
-
+def process_path(path):
+    if os.path.isdir(path):
+        matched_files_md = glob.glob(f"{path}/**/*.md", recursive=True)
+        matched_files_markdown = glob.glob(f"{path}/**/*.markdown", recursive=True)
+        matched_files_html = glob.glob(f"{path}/**/*.html", recursive=True)
+        matched_files = matched_files_md + matched_files_markdown + matched_files_html
+        print(f"Found {len(matched_files)} files.")
+        for file in matched_files:
+            print(f"Processing: {file}")
+            update_markdown_file(file)
+    elif os.path.isfile(path):
+        print(f"Processing: {path}")
+        update_markdown_file(path)
+    else:
+        print("Invalid path provided.")
 
 if len(sys.argv) < 2:
-  print("Please provide a directory path as a command line argument.")
-  sys.exit(1)
+    print("Please provide a directory path or a single md file path as a command line argument.")
+    sys.exit(1)
 
-folder_path = sys.argv[1]
-process_folder(folder_path)
+path = sys.argv[1]
+process_path(path)
