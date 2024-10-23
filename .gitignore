@@ -3,3 +3,4 @@ audio_to_srt/*.srt
 venv
 polyglot/credentials.json
 polyglot/token.json
+**/__pycache__

@@ -1,3 +1,4 @@
+from pathlib import Path
 
 import re
 import pytube
@@ -19,7 +20,8 @@ logger.addHandler(handler)
 def write_url_mapping(source_url, destination_url, path):
     file_path = os.path.join(path, 'url_mapping.csv')
     try:
-        with open(file_path, 'a', newline='') as file:
+        os.makedirs(path, exist_ok=True) 
+        with open(file_path, 'a+', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([source_url, destination_url])
         logger.info(f'Successfully wrote mapping: {source_url} to {destination_url} in {file_path}')
@@ -115,10 +117,18 @@ def download_videos(urls, path):
             logger.exception(f'Error downloading video: {url}. Error: {e}')
 
 def write_video_info(title, description, path):
-    safe_file_name = f"{title}.txt".replace("/", "-")
-    file_path = os.path.join(path, safe_file_name)
-    with open(file_path, 'w') as file:
-        file.write(f"Title: {title}\nDescription: {description}")
+    try:
+        safe_file_name = f"{title}.txt".replace("/", "-")
+        file_path = Path(path) / safe_file_name
+        with open(file_path, 'w') as file:
+            safe_description = description.replace("'", "\\'").replace('"', '\\"')
+            file.write(f"Title: {title}\nDescription: {safe_description}")
+    except Exception as e:
+        logger.error(f'Error writing to file {file_path}: {e}')
+    if any(char in title for char in ['<', '>', '&', ';', '|', '`']):
+        raise ValueError("Title contains invalid characters")
+    if any(char in description for char in ['<', '>', '&', ';', '|', '`']):
+        raise ValueError("Description contains invalid characters")
 
 def main():
     file_name = 'youtube-embed.txt'
